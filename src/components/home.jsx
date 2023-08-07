@@ -2,10 +2,11 @@ import React, { useState, useEffect } from "react";
 import { fetchAllPlayers } from "../API";
 import { useNavigate } from "react-router-dom";
 
-export default function AllPlayers() {
-  const navigate = useNavigate();
+export default function Home() {
   const [players, setPlayers] = useState(null);
+  const navigate = useNavigate();
 
+  // Fethcing all players using a function from API folder
   useEffect(() => {
     async function fetchPlayers() {
       const allPlayers = await fetchAllPlayers();
@@ -15,18 +16,18 @@ export default function AllPlayers() {
   }, []);
 
   return (
-    <div className="all-players-container-1">
-      <div className="all-players-title-bar-1">
-        <h1>Players</h1>
+    <div className="all-players-container">
+      <div className="all-players-title-bar">
+        <h1>Welcome to Puppy Bowl!</h1>
       </div>
-      <div className="all-players-1">
+      <div className="all-players">
         {players ? (
           players.map((player) => {
             return (
-              <div className="player-card" key={player.id}>
+              <div key={player.id} className="player-card">
                 <h2 className="player-name">{player.name}</h2>
                 <div className="player-img-container">
-                  <img src={player.imageUrl} alt="Image Not Found" />
+                  <img src={player.imageUrl} alt="Image Not Found!" />
                 </div>
                 <div className="buttons-div">
                   <button
@@ -42,10 +43,18 @@ export default function AllPlayers() {
             );
           })
         ) : (
-          <h1>players not found</h1>
+          <p>players not found</p>
         )}
       </div>
       <div className="all-players-footer">
+        <button
+          className="footer-buttons"
+          onClick={() => {
+            navigate("/players");
+          }}
+        >
+          View All Players!
+        </button>
         <button
           className="footer-buttons"
           onClick={() => {
